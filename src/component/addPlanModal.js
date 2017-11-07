@@ -8,15 +8,21 @@ import {
   ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
+  TouchableHighlight,
+  KeyboardAvoidingView,
 } from "react-native";
+import TimeInput from "./timeInput";
 
 const parette = [
-  { lightskyblue: ["9:00", "12:00"] },
-  { navajowhite: ["9:00", "12:00"] },
-  { lightpink: ["9:00", "12:00"] },
-  { lemonchiffon: ["9:00", "12:00"] },
-  { lavender: ["9:00", "12:00"] },
-  { palegreen: ["9:00", "12:00"] },
+  { A: ["#fbd2ff", "9:00", "12:00"] },
+  { B: ["#ada7ff", "9:00", "12:00"] },
+  { C: ["#e28cff", "9:00", "12:00"] },
+  { D: ["#ff8ab8", "9:00", "12:00"] },
+  { E: ["#11d7d8", "9:00", "12:00"] },
+  { F: ["#63c8c4", "9:00", "12:00"] },
+  { G: ["#aae2df", "9:00", "12:00"] },
+  { H: ["#facfd9", "9:00", "12:00"] },
+  { M: ["#fd9ab6", "9:00", "12:00"] },
 ];
 
 const styles = StyleSheet.create({
@@ -35,7 +41,7 @@ const styles = StyleSheet.create({
   planHeader: {
     flex: 1,
     width: "100%",
-    backgroundColor: "dodgerblue",
+    backgroundColor: "rgba(250,207,217, 0.5)",
   },
   headerBar: {
     paddingTop: 30,
@@ -52,18 +58,18 @@ const styles = StyleSheet.create({
   },
   headerBarText: {
     fontSize: 20,
-    color: "white",
+    color: "black",
   },
   titleText: {
     fontSize: 25,
-    color: "white",
+    color: "black",
   },
   planBody: {
     width: "100%",
     flex: 4,
     alignItems: "center",
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   shortcutButton: {
     width: "100%",
@@ -74,61 +80,77 @@ const styles = StyleSheet.create({
   textField: {
     width: "100%",
     flex: 3,
-    padding: 10,
-    paddingBottom: 100,
+    paddingLeft: 10,
+    paddingRight: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   butttonWrapper: {
     flex: 1,
+    width: "120%",
     justifyContent: "center",
     alignItems: "center",
   },
   button: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-  },
-  planDetail: {
-    flex: 1,
-    alignItems: "center",
+    height: 24,
+    width: 24,
+    borderRadius: 12,
     justifyContent: "center",
-    width: "70%",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
   },
   textInputWrapper: {
     borderColor: "gainsboro",
+    borderRadius: 5,
     borderWidth: 1,
-    width: "100%",
-    padding: 5,
     justifyContent: "center",
+    padding: 5,
+    width: "100%",
+    height: 100,
+  },
+  planInput: {
+    flex: 3,
+    width: "100%",
+    justifyContent: "flex-start",
+  },
+  timeForm: {
+    height: 60,
+    width: "100%",
+    flexDirection: "row",
+  },
+  labels: {
+    height: 15,
+    width: "100%",
+    flexDirection: "row",
+  },
+  label: {
+    flex: 1,
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
+  },
+  labelText: {
+    color: "grey",
+    fontSize: 10,
+    paddingBottom: 3,
+    paddingLeft: 12,
+  },
+  buttonText: {
+    fontSize: 10,
+    color: "rgba(0,0,0,0.7)",
   },
   textInput: {
-    width: "100%",
-    textAlignVertical: "center",
-  },
-  timeInput: {
-    height: 45,
-    width: 35,
-    borderColor: "gainsboro",
-    borderWidth: 1,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  timeFont: {
-    fontSize: 20,
-    width: 35,
-    height: 45,
-    textAlignVertical: "center",
-    textAlign: "center",
+    height: 100,
   },
 });
 
 export default class CheckPlanModal extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = { touching: [0, 0, 0, 0, 0, 0, 0, 0], keyboardActive: 0 };
+    this.handleKeybord = this.handleKeybord.bind(this);
+  }
+
+  handleKeybord() {
+    this.setState({ keyboardActive: !this.state.keyboardActive });
   }
 
   render() {
@@ -163,67 +185,59 @@ export default class CheckPlanModal extends PureComponent {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.planBody}>
               <View style={styles.shortcutButton}>
-                {parette.map((value, index) => {
-                  return (
-                    <View style={styles.butttonWrapper} key={index}>
-                      <TouchableOpacity
-                        style={[
-                          styles.button,
-                          {
-                            borderColor: Object.keys(value)[0],
-                            backgroundColor: Object.keys(value)[0],
-                          },
-                        ]}
-                        onPress={() => {}}
-                      />
-                    </View>
-                  );
-                })}
+                {!this.state.keyboardActive
+                  ? parette.map((value, index) => {
+                      return (
+                        <View style={styles.butttonWrapper} key={index}>
+                          <TouchableHighlight
+                            underlayColor={value[Object.keys(value)[0]][0]}
+                            style={[
+                              styles.button,
+                              {
+                                borderColor: value[Object.keys(value)[0]][0],
+                                borderWidth: 1,
+                              },
+                            ]}
+                            onPress={() => {}}
+                          >
+                            <Text style={styles.buttonText}>
+                              {Object.keys(value)[0]}
+                            </Text>
+                          </TouchableHighlight>
+                        </View>
+                      );
+                    })
+                  : null}
               </View>
-              <View style={styles.textField}>
-                <View style={styles.planDetail}>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
+              <KeyboardAvoidingView
+                style={styles.planInput}
+                behavior={"position"}
+              >
+                <View style={styles.labels}>
+                  <View style={styles.label}>
+                    <Text style={styles.labelText}>Start</Text>
                   </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
-                  </View>
-                  <View style={styles.timeInput}>
-                    <Text style={styles.timeFont}>:</Text>
-                  </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
-                  </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
+                  <View style={styles.label}>
+                    <Text style={styles.labelText}>End</Text>
                   </View>
                 </View>
-                <View style={styles.planDetail}>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
-                  </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
-                  </View>
-                  <View style={styles.timeInput}>
-                    <Text style={styles.timeFont}>:</Text>
-                  </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
-                  </View>
-                  <View style={styles.timeInput}>
-                    <TextInput style={styles.timeFont} />
+                <View style={styles.timeForm}>
+                  <TimeInput handleKeybord={this.handleKeybord} />
+                  <TimeInput handleKeybord={this.handleKeybord} />
+                </View>
+                <View style={styles.textField}>
+                  <View style={styles.textInputWrapper}>
+                    <TextInput
+                      style={styles.textInput}
+                      multiline={true}
+                      keyboardAppearance={"light"}
+                      enablesReturnKeyAutomatically={true}
+                      onFocus={this.handleKeybord}
+                      onEndEditing={this.handleKeybord}
+                    />
                   </View>
                 </View>
-                <View style={styles.textInputWrapper}>
-                  <TextInput
-                    style={styles.textInput}
-                    multiline={true}
-                    keyboardAppearance={"light"}
-                    enablesReturnKeyAutomatically={true}
-                  />
-                </View>
-              </View>
+              </KeyboardAvoidingView>
             </View>
           </TouchableWithoutFeedback>
         </View>

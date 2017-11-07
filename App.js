@@ -9,6 +9,7 @@ import {
 import CalendarWrapper from "./src/container/calendarWrapper";
 import AddPlanModal from "./src/component/addPlanModal";
 import CheckPlanModal from "./src/component/checkPlanModal";
+import DayCell from "./src/component/dayCell";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -20,12 +21,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   todayButton: {
-    borderColor: "dodgerblue",
+    borderColor: "#ff8ab8",
     borderWidth: 1,
     borderRadius: 20,
     height: 40,
     width: 40,
-    backgroundColor: "dodgerblue",
+    backgroundColor: "#ff8ab8",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -51,49 +52,25 @@ export default class App extends PureComponent {
   componentWillMount() {
     this.setState({
       plans: {
-        2017: {
-          11: {
-            1: {
-              bottom: [
-                { title: "12~15", start: "12:00", end: "18:00" },
-                { title: "12~15", start: "12:00", end: "18:00" },
-                { title: "12~15", start: "12:00", end: "18:00" },
-              ],
-              up: [
-                { title: "予定がある", start: "19:00", end: "21:00" },
-                { title: "play with xxx", start: "19:00", end: "21:00" },
-                { title: "play with xxx", start: "19:00", end: "21:00" },
-                {
-                  title:
-                    "play with xasdfasdf;asfasdfasdfasdfasdfasdfasdfasaskdfj;aksjdf\nxx",
-                  start: "19:00",
-                  end: "21:00",
-                },
-                {
-                  title:
-                    "play with xasdfasdf;asfasdfasdfasdfasdfasdfasdfasaskdfj;aksjdf\nxx",
-                  start: "19:00",
-                  end: "21:00",
-                },
-                {
-                  title:
-                    "play with xasdfasdf;asfasdfasdfasdfasdfasdfasdfasaskdfj;aksjdf\nxx",
-                  start: "19:00",
-                  end: "21:00",
-                },
-              ],
-            },
-            5: {
-              bottom: [{ title: "12~15", start: "12:00", end: "18:00" }],
-              up: [
-                { title: "play with xxx", start: "19:00", end: "21:00" },
-                { title: "play with xxssx", start: "22:30", end: "24:00" },
-                { title: "play with xxx", start: "19:00", end: "21:00" },
-                { title: "play with xxssx", start: "22:30", end: "24:00" },
-              ],
-            },
-          },
-        },
+        "2017-11-01": [
+          { title: "work", start: "10:00", end: "11:00" },
+          { title: "数学の宿題", start: "12:00", end: "14:00" },
+          { title: "英語の宿題", start: "15:00", end: "15:01" },
+          { title: "国語の宿題", start: "17:00", end: "17:01" },
+          { title: "漢字の勉強", start: "18:30", end: "19:00" },
+          { title: "漢字の勉強", start: "18:30", end: "19:00" },
+          { title: "漢字の勉強", start: "18:30", end: "19:00" },
+          { title: "漢字の勉強", start: "18:30", end: "19:00" },
+          { title: "漢字の勉強", start: "18:30", end: "19:00" },
+        ],
+        "2017-11-02": [
+          { title: "work", start: "12:00", end: "19:00" },
+          { title: "友人Aと渋谷", start: "20:00", end: "21:00" },
+        ],
+        "2017-11-15": [
+          { title: "work", start: "12:00", end: "19:00" },
+          { title: "友人Bと新宿", start: "20:00", end: "21:00" },
+        ],
       },
     });
   }
@@ -104,7 +81,7 @@ export default class App extends PureComponent {
       <View style={styles.container}>
         <CalendarWrapper
           date={today}
-          /* dayCell={} */
+          dayCell={DayCell}
           doublePressModal={AddPlanModal}
           height={515}
           holiday={"jp"}

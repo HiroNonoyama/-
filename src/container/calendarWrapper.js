@@ -74,6 +74,7 @@ export default class CalendarWrapper extends PureComponent {
   doublePressModalVisible(obj) {
     this.setState({
       pressedDay: obj ? obj.day : null,
+      pressedDayPlans: obj ? obj.plans : null,
       doublePressModal: !this.state.doublePressModal,
     });
   }
@@ -106,6 +107,7 @@ export default class CalendarWrapper extends PureComponent {
           today={this.props.date}
           doublePress={obj => this.doublePressModalVisible(obj)}
           singlePress={obj => this.singlePressModalVisible(obj)}
+          dayCell={this.props.dayCell}
         />
         <Modal
           visible={this.state.doublePressModal}

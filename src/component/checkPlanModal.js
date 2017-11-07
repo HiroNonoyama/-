@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   planHeader: {
     flex: 1,
     width: "100%",
-    backgroundColor: "dodgerblue",
+    backgroundColor: "rgba(250,207,217, 0.5)",
   },
   headerBar: {
     paddingTop: 30,
@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
   },
   headerBarText: {
     fontSize: 20,
-    color: "white",
+    color: "black",
   },
   titleText: {
     fontSize: 25,
-    color: "white",
+    color: "black",
   },
   planBody: {
     width: "100%",
@@ -98,12 +98,8 @@ export default class CheckPlanModal extends PureComponent {
 
   render() {
     const plans = this.props.plans;
-    let allPlans = [];
     if (plans) {
-      const upPlans = plans.up ? plans.up : {};
-      const bottomPlans = plans.bottom ? plans.bottom : {};
-      allPlans = [...upPlans, ...bottomPlans];
-      allPlans.sort((a, b) => {
+      plans.sort((a, b) => {
         if (a.start < b.start) {
           return -1;
         } else {
@@ -130,8 +126,8 @@ export default class CheckPlanModal extends PureComponent {
               style={styles.cardScroll}
               showsVerticalScrollIndicator={false}
             >
-              {allPlans.length ? (
-                allPlans.map((plan, index) => {
+              {plans && plans.length ? (
+                plans.map((plan, index) => {
                   return (
                     <View key={index} style={styles.planCard}>
                       <View style={styles.planData}>

@@ -19,26 +19,27 @@ const isToday = (today, year, month, date) => {
 };
 
 export default function Week(props) {
-  const yearPlans = props.plans[props.year];
-  const monthPlans = yearPlans ? yearPlans[props.month] : null;
-  return props.days.map((day, index) => (
-    <View key={index} style={styles.container}>
-      <Day
-        doublePress={obj => props.doublePress(obj)}
-        singlePress={obj => props.singlePress(obj)}
-        isToday={isToday(props.today, props.year, props.month, day)}
-        day={day}
-        month={props.month}
-        year={props.year}
-        plan={monthPlans ? monthPlans[day] : null}
-        isHoliday={props.holidays.indexOf(
-          `${props.year}-${String(props.month).length === 2
-            ? props.month
-            : "0" + String(props.month)}-${String(day).length === 2
-            ? day
-            : "0" + String(day)}`
-        )}
-      />
-    </View>
-  ));
+  return props.days.map((day, index) => {
+    const plans =
+      props.plans[`${props.year}-${props.month}-${day > 9 ? "" : 0}${day}`];
+    return (
+      <View key={index} style={styles.container}>
+        <Day
+          dayCell={props.dayCell}
+          doublePress={obj => props.doublePress(obj)}
+          singlePress={obj => props.singlePress(obj)}
+          isToday={isToday(props.today, props.year, props.month, day)}
+          day={day}
+          month={props.month}
+          year={props.year}
+          plans={plans ? plans : null}
+          isHoliday={props.holidays.indexOf(
+            `${props.year}-${props.month > 9
+              ? props.month
+              : "0" + String(props.month)}-${day > 9 ? day : "0" + String(day)}`
+          )}
+        />
+      </View>
+    );
+  });
 }
