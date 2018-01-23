@@ -4954,6 +4954,10 @@ react-native-scripts@1.7.0:
     rimraf "^2.6.1"
     xdl "46.0.1"
 
+"react-native-simple-calendar@https://github.com/HiroNonoyama/react-native-minimum-calendar.git":
+  version "1.0.0"
+  resolved "https://github.com/HiroNonoyama/react-native-minimum-calendar.git#28db8b1ce2f78d459667c70a9a03eee43955f956"
+
 react-native-svg@5.4.2:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-5.4.2.tgz#a01b4d88cda4b8ef4b2bc1adf05e11ec93a77b79"
@@ -5133,6 +5137,10 @@ redux-logger@^2.7.4:
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.10.2.tgz#3c5a5f0a6f32577c1deadf6655f257f82c6c3937"
   dependencies:
     deep-diff "0.3.4"
+
+redux-saga@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.0.tgz#0a231db0a1489301dd980f6f2f88d8ced418f724"
 
 redux@^3.6.0:
   version "3.7.2"

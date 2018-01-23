@@ -27,6 +27,7 @@
     "prettier": "^1.7.4",
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",
+    "react-native-simple-calendar": "https://github.com/HiroNonoyama/react-native-minimum-calendar.git",
     "redux-saga": "^0.16.0"
   }
 }
