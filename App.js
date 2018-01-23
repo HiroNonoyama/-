@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import CalendarWrapper from "./src/container/calendarWrapper";
 import AddPlanModal from "./src/component/addPlanModal";
 import CheckPlanModal from "./src/component/checkPlanModal";
 import DayCell from "./src/component/dayCell";
+import Calendar from "react-native-minimum-calendar";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -52,7 +52,7 @@ export default class App extends PureComponent {
   componentWillMount() {
     this.setState({
       plans: {
-        "2017-11-01": [
+        "2018-1-01": [
           { title: "work", start: "10:00", end: "11:00" },
           { title: "数学の宿題", start: "12:00", end: "14:00" },
           { title: "英語の宿題", start: "15:00", end: "15:01" },
@@ -79,20 +79,20 @@ export default class App extends PureComponent {
     const today = new Date();
     return (
       <View style={styles.container}>
-        <CalendarWrapper
+        <Calendar
           date={today}
           dayCell={DayCell}
           doublePressModal={AddPlanModal}
           height={515}
           holiday={"jp"}
           plans={this.state.plans}
-          ref="CalendarWrapper"
+          ref="Calendar"
           singlePressModal={CheckPlanModal}
           width={window.width}
         />
         <View style={styles.todayButtonContainer}>
           <TouchableOpacity
-            onPress={() => this.refs.CalendarWrapper.goToToday()}
+            onPress={() => this.refs.Calendar.goToToday()}
             style={styles.todayButton}
           >
             <Text style={styles.todayButtonText}>Today</Text>
